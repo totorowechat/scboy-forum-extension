@@ -1,7 +1,7 @@
 {
-  "name": "example-dir",
-  "displayName": "Example dir",
-  "version": "0.0.0",
+  "name": "scboy-forum",
+  "displayName": "scboy-forum",
+  "version": "0.0.1",
   "description": "A basic Plasmo extension.",
   "author": "lingao",
   "scripts": {
@@ -9,11 +9,12 @@
     "build": "plasmo build"
   },
   "dependencies": {
-    "plasmo": "latest",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@plasmohq/storage": "^0.6.0",
+    "plasmo": "latest",
     "@trivago/prettier-plugin-sort-imports": "3.2.0",
     "@types/chrome": "0.0.190",
     "@types/node": "17.0.43",
@@ -25,6 +26,9 @@
   "manifest": {
     "host_permissions": [
       "https://*/*"
+    ],
+    "permissions": [
+      "tabs"
     ]
   }
 }
