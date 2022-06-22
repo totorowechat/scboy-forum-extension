@@ -1,7 +1,7 @@
 import type { PlasmoContentScript } from "plasmo"
 
 export const config: PlasmoContentScript = {
-  matches: ["https://*.scboy.cc/*"]
+  matches: ["https://*.scboy.cc/?forum*"]
 }
 
 // export const getMountPoint = async () => document.querySelectorAll("a.xs-thread-a")
