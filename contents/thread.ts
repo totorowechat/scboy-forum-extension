@@ -48,7 +48,12 @@ const getPostsHeight = function (list: NodeListOf<HTMLElement>) {
 }
 
 const getThreadID = function () {
-  const regex = /\?thread-([0-9]+)\.htm/
+  const regex = /\?thread-(\d+)-?\d*\.htm/
+  return window.location.search.match(regex)[1]
+}
+
+const getCurrThreadPage = function () {
+  const regex = /\?thread-\d+-?(\d*)\.htm/
   return window.location.search.match(regex)[1]
 }
 
@@ -59,7 +64,6 @@ const getLastSeen = async (storage: Storage, key: string, fn) => {
 }
 const setLastSeen = async (storage: Storage, key: string, value: string) => {
   await storage.set(key, value)
-  // chrome.runtime.openOptionsPage()
 }
 
 window.addEventListener("load", () => {
@@ -71,7 +75,7 @@ window.addEventListener("load", () => {
     "scroll",
     debounce(function (_e) {
       let lastKnownScrollPosition = window.scrollY + window.innerHeight
-      console.log(lastKnownScrollPosition)
+      //   console.log(lastKnownScrollPosition)
 
       // find first element higher than current position, choose last if not found
 
@@ -81,12 +85,15 @@ window.addEventListener("load", () => {
 
       if (postIndex === -1) postIndex = postsHeight.length - 1
       //   console.log(postsHeight[postIndex].element.getAttribute("data-pid"))
-
+      let currPage = "1"
+      if (getCurrThreadPage() !== "") currPage = getCurrThreadPage()
       getLastSeen(storage, "last_seen_tids", (lastSeen) => {
         if (lastSeen === null) lastSeen = {}
 
-        lastSeen[getThreadID()] =
-          postsHeight[postIndex].element.getAttribute("data-pid")
+        lastSeen[getThreadID()] = {
+          page: currPage,
+          post: postsHeight[postIndex].element.getAttribute("data-pid")
+        }
 
         setLastSeen(storage, "last_seen_tids", lastSeen)
       })
