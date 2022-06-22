@@ -1,9 +1,4 @@
-import { SetStateAction, useState } from "react"
-
-import { Storage, useStorage } from "@plasmohq/storage"
-
-import { getActiveTabs } from "~core/tabs"
-
+import { useState } from "react"
 
 function IndexPopup() {
   const [data, setData] = useState("")
@@ -15,41 +10,17 @@ function IndexPopup() {
       style={{
         display: "flex",
         flexDirection: "column",
-        padding: 16
+        padding: 16,
+        minWidth: "300px"
       }}>
-      <h1>
-        Welcome to your <a href="https://www.plasmo.com">Plasmo</a> Extension!
+      <h1
+        style={{
+          margin: 'auto'
+        }}>
+        星际老男孩论坛插件
       </h1>
-      <input
-        onChange={(e) => {
-          setData(e.target.value)
-          test(setText)
-          handshake("hello")
-        }}
-        value={data}
-      />
-      <p>{data}</p>
-      <p>{text}</p>
     </div>
   )
-}
-
-const test = async (fn: { (value: SetStateAction<string>): void; (arg0: string): void }) => {
-  const [tab] = await getActiveTabs()
-  fn('123')
-}
-
-enum StorageKey {
-  PeerState = "peer-state",
-  IframeClick = "iframe-click",
-  OpenHailing = "open-hailing",
-  InboundHailing = "inbound-hailing"
-}
-
-const handshake = async (inboundHF: string) => {
-  const storage = new Storage()
-  await storage.set(StorageKey.InboundHailing, inboundHF)
-  // chrome.runtime.openOptionsPage()
 }
 
 export default IndexPopup
