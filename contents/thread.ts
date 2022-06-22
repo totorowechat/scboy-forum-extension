@@ -1,6 +1,8 @@
 import type { PlasmoContentScript } from "plasmo"
 
 import { Storage } from "@plasmohq/storage"
+import { getLastSeen, setLastSeen } from "~core/local-storage";
+
 
 export const config: PlasmoContentScript = {
   matches: ["https://*.scboy.cc/?thread*"]
@@ -55,15 +57,6 @@ const getThreadID = function () {
 const getCurrThreadPage = function () {
   const regex = /\?thread-\d+-?(\d*)\.htm/
   return window.location.search.match(regex)[1]
-}
-
-const getLastSeen = async (storage: Storage, key: string, fn) => {
-  let lastSeen = await storage.get(key)
-
-  fn(lastSeen)
-}
-const setLastSeen = async (storage: Storage, key: string, value: string) => {
-  await storage.set(key, value)
 }
 
 window.addEventListener("load", () => {
