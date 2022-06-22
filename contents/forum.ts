@@ -4,22 +4,6 @@ export const config: PlasmoContentScript = {
   matches: ["https://*.scboy.cc/?forum*"]
 }
 
-// export const getMountPoint = async () => document.querySelectorAll("a.xs-thread-a")
-
-// const PlasmoPricingExtra = () => {
-//   return (
-//     <span
-//     //   style={{
-//     //     background: "white",
-//     //     padding: 12
-//     //   }}
-//       >
-//       HELLO WORLD
-//     </span>
-//   )
-// }
-
-// export default PlasmoPricingExtra
 export {}
 window.addEventListener("load", () => {
   console.log("scboy forum extension loaded")
@@ -45,5 +29,5 @@ window.addEventListener("load", () => {
     link.href = "http://google.com"
     ele.after(link)
   })
-  //   document.body.style.background = "pink"
+
 })
