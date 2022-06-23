@@ -59,11 +59,17 @@ const getCurrThreadPage = function () {
   return window.location.search.match(regex)[1]
 }
 
+const getCurrPostFloor = function (ele: HTMLElement) {
+  let floor = ele.querySelector(".floor-parent") as HTMLElement | null
+  return floor.innerText.split("楼")[0]
+}
+
 // window.addEventListener("load", () => {
 console.log("scboy forum extension thread loaded")
 const storage = new Storage()
 
 let postsHeight = getPostsHeight(getAllPosts())
+
 document.addEventListener(
   "scroll",
   debounce(function (_e) {
@@ -73,7 +79,7 @@ document.addEventListener(
     // find first element higher than current position, choose last if not found
 
     let postIndex = postsHeight.findIndex(
-      (post) => post.height + convertRemToPixels(5) > lastKnownScrollPosition
+      (post) => post.height > lastKnownScrollPosition
     )
 
     if (postIndex === -1) postIndex = postsHeight.length - 1
@@ -87,7 +93,8 @@ document.addEventListener(
         page: currPage,
         post:
           postsHeight[postIndex] &&
-          postsHeight[postIndex].element.getAttribute("data-pid")
+          postsHeight[postIndex].element.getAttribute("data-pid"),
+        floor: getCurrPostFloor(postsHeight[postIndex].element)
       }
 
       setLastSeen(storage, "last_seen_tids", lastSeen)
