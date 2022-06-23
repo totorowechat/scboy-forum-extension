@@ -59,39 +59,39 @@ const getCurrThreadPage = function () {
   return window.location.search.match(regex)[1]
 }
 
-window.addEventListener("load", () => {
-  console.log("scboy forum extension thread loaded")
-  const storage = new Storage()
+// window.addEventListener("load", () => {
+console.log("scboy forum extension thread loaded")
+const storage = new Storage()
 
-  let postsHeight = getPostsHeight(getAllPosts())
-  document.addEventListener(
-    "scroll",
-    debounce(function (_e) {
-      let lastKnownScrollPosition = window.scrollY + window.innerHeight
-      //   console.log(lastKnownScrollPosition)
+let postsHeight = getPostsHeight(getAllPosts())
+document.addEventListener(
+  "scroll",
+  debounce(function (_e) {
+    let lastKnownScrollPosition = window.scrollY + window.innerHeight
+    //   console.log(lastKnownScrollPosition)
 
-      // find first element higher than current position, choose last if not found
+    // find first element higher than current position, choose last if not found
 
-      let postIndex = postsHeight.findIndex(
-        (post) => post.height + convertRemToPixels(5) > lastKnownScrollPosition
-      )
+    let postIndex = postsHeight.findIndex(
+      (post) => post.height + convertRemToPixels(5) > lastKnownScrollPosition
+    )
 
-      if (postIndex === -1) postIndex = postsHeight.length - 1
-      //   console.log(postsHeight[postIndex].element.getAttribute("data-pid"))
-      let currPage = "1"
-      if (getCurrThreadPage() !== "") currPage = getCurrThreadPage()
-      getLastSeen(storage, "last_seen_tids", (lastSeen) => {
-        if (lastSeen === null) lastSeen = {}
+    if (postIndex === -1) postIndex = postsHeight.length - 1
+    //   console.log(postsHeight[postIndex].element.getAttribute("data-pid"))
+    let currPage = "1"
+    if (getCurrThreadPage() !== "") currPage = getCurrThreadPage()
+    getLastSeen(storage, "last_seen_tids", (lastSeen) => {
+      if (lastSeen === null) lastSeen = {}
 
-        lastSeen[getThreadID()] = {
-          page: currPage,
-          post:
-            postsHeight[postIndex] &&
-            postsHeight[postIndex].element.getAttribute("data-pid")
-        }
+      lastSeen[getThreadID()] = {
+        page: currPage,
+        post:
+          postsHeight[postIndex] &&
+          postsHeight[postIndex].element.getAttribute("data-pid")
+      }
 
-        setLastSeen(storage, "last_seen_tids", lastSeen)
-      })
-    }, 500)
-  )
-})
+      setLastSeen(storage, "last_seen_tids", lastSeen)
+    })
+  }, 500)
+)
+// })

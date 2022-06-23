@@ -13,7 +13,7 @@ const getElementTID = function (element: HTMLElement) {
   return getThreadID(element.getAttribute("href"))
 }
 
-window.addEventListener("load", () => {
+// window.addEventListener("load", () => {
   console.log("scboy forum extension loaded")
 
   const storage = new Storage()
@@ -47,4 +47,4 @@ window.addEventListener("load", () => {
       }
     })
   })
-})
+// })
