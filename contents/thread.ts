@@ -1,8 +1,8 @@
 import type { PlasmoContentScript } from "plasmo"
 
 import { Storage } from "@plasmohq/storage"
-import { getLastSeen, setLastSeen } from "~core/local-storage";
 
+import { getLastSeen, setLastSeen } from "~core/local-storage"
 
 export const config: PlasmoContentScript = {
   matches: ["https://*.scboy.cc/?thread*"]
@@ -85,7 +85,9 @@ window.addEventListener("load", () => {
 
         lastSeen[getThreadID()] = {
           page: currPage,
-          post: postsHeight[postIndex].element.getAttribute("data-pid")
+          post:
+            postsHeight[postIndex] &&
+            postsHeight[postIndex].element.getAttribute("data-pid")
         }
 
         setLastSeen(storage, "last_seen_tids", lastSeen)
