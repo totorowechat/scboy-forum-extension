@@ -2,7 +2,7 @@ import type { PlasmoContentScript } from "plasmo"
 
 import { Storage } from "@plasmohq/storage"
 
-import { getLastSeen, setLastSeen } from "~core/local-storage"
+import { getLastSeen, setLastSeen } from "~core/localStorage"
 
 export const config: PlasmoContentScript = {
   matches: ["https://*.scboy.cc/?thread*"]

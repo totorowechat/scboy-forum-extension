@@ -2,7 +2,7 @@ import type { PlasmoContentScript } from "plasmo"
 
 import { Storage } from "@plasmohq/storage"
 
-import { getLastSeen } from "~core/local-storage"
+import { getLastSeen } from "~core/localStorage"
 import { getThreadID } from "~core/utils"
 
 export const config: PlasmoContentScript = {
