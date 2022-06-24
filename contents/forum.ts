@@ -23,9 +23,18 @@ const getPostsCount = function (element: HTMLElement) {
   )
 }
 
+const getCheckInButton = function () {
+  return document.querySelector("#xs_checkin_btn") as HTMLElement | null
+}
+
 // window.addEventListener("load", () => {
 console.log("scboy forum extension loaded")
 
+
+// check in 
+getCheckInButton() && getCheckInButton().click();
+
+// last seen and unread
 const storage = new Storage()
 
 const style = document.createElement("style")
