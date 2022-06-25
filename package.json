@@ -1,7 +1,7 @@
 {
   "name": "scboy-forum",
   "displayName": "scboy-forum",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A basic Plasmo extension.",
   "author": "lingao",
   "scripts": {
