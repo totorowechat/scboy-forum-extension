@@ -1,7 +1,5 @@
 import type { PlasmoContentScript } from "plasmo"
 
-import { Storage } from "@plasmohq/storage"
-
 import { getLastSeen, setLastSeen } from "~core/localStorage"
 
 export const config: PlasmoContentScript = {
@@ -32,10 +30,6 @@ const getOffset = function (el) {
   }
 }
 
-const convertRemToPixels = function (rem) {
-  return rem * parseFloat(getComputedStyle(document.documentElement).fontSize)
-}
-
 const getAllPosts = function (): NodeListOf<HTMLElement> {
   return document.querySelectorAll(".media.post:not(.newpost)")
 }
@@ -54,6 +48,15 @@ const getThreadID = function () {
   return window.location.search.match(regex)[1]
 }
 
+const getThreadTitle = function () {
+  return document.querySelector<HTMLElement>("div.media > div > h4").innerText
+}
+
+const getThreadAuthor = function () {
+  return document.querySelector<HTMLElement>(
+    "#body > div > div > div.col-lg-9.main > div.card.card-thread > div > div.media > div > div > div:nth-child(1) > span.username > a"
+  ).innerText
+}
 const getCurrThreadPage = function () {
   const regex = /\?thread-\d+-?(\d*)\.htm/
   return window.location.search.match(regex)[1]
@@ -65,8 +68,6 @@ const getCurrPostFloor = function (ele: HTMLElement) {
 }
 
 // window.addEventListener("load", () => {
-console.log("scboy forum extension thread loaded")
-const storage = new Storage()
 
 let postsHeight = getPostsHeight(getAllPosts())
 
@@ -94,12 +95,17 @@ document.addEventListener(
         post:
           postsHeight[postIndex] &&
           postsHeight[postIndex].element.getAttribute("data-pid"),
-        floor: getCurrPostFloor(postsHeight[postIndex].element)
+        threadTitle: getThreadTitle(),
+        threadAuthor: getThreadAuthor(),
+        floor: getCurrPostFloor(postsHeight[postIndex].element),
+        updateTime: Date.now()
       }
 
       // setLastSeen(storage, "last_seen_tids", lastSeen)
-      setLastSeen(lastSeen);
+      setLastSeen(lastSeen)
     })
   }, 500)
 )
 // })
+
+console.log("scboy forum extension thread loaded")

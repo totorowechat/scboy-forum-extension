@@ -5,11 +5,6 @@ import { RecentViews } from "~options/components/recentViews"
 
 export const Home = () => {
   const navigation: NavigateFunction = useNavigate()
-
-  // const onNextPage = (): void => {
-  //   navigation("/recentViews")
-  // }
-
   return (
     <div
       style={{
@@ -24,13 +19,13 @@ export const Home = () => {
         }}>
         星际老男孩论坛插件
       </h1>
+      <h3>功能</h3>
       <ul>
         <li>自动签到</li>
         <li>显示未读消息</li>
         <li>跳转上次阅读位置</li>
-        <li>最近阅读</li>
+        <li onClick={() => navigation("/recentViews")}>最近阅读</li>
       </ul>
-      <RecentViews />
     </div>
   )
 }

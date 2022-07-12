@@ -1,13 +1,13 @@
 import React from "react"
-import { MemoryRouter } from "react-router-dom"
+import { HashRouter } from "react-router-dom"
 
 import { Routing } from "./routes"
 
 function OptionsIndex() {
   return (
-    <MemoryRouter>
+    <HashRouter>
       <Routing />
-    </MemoryRouter>
+    </HashRouter>
   )
 }
 
