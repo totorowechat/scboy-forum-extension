@@ -5,6 +5,5 @@ export const getLastSeen = (fn) => {
 }
 export const setLastSeen = (value: string) => {
   chrome.storage.local.set({ last_seen_tids: value }, function () {
-    console.log("Value is set to " + value)
   })
 }
