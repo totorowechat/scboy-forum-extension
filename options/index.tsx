@@ -1,13 +1,13 @@
-import { useState } from "react"
+import React from "react"
+import { MemoryRouter } from "react-router-dom"
+
+import { Routing } from "./routes"
 
 function OptionsIndex() {
-
   return (
-    <div>
-      <h1>
-        Option page
-      </h1>
-    </div>
+    <MemoryRouter>
+      <Routing />
+    </MemoryRouter>
   )
 }
 

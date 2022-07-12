@@ -1,0 +1,13 @@
+.recentViewsTable {
+  width: 90%;
+  margin: 0 auto;
+}
+
+tr td:nth-child(2) {
+  text-align: center;
+}
+
+th,
+td {
+  border-style: dotted;
+}
