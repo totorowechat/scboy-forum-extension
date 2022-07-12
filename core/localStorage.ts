@@ -1,14 +1,10 @@
-import type { Storage } from "@plasmohq/storage"
-
-export const getLastSeen = async (storage: Storage, key: string, fn) => {
-  let lastSeen = await storage.get(key)
-
-  fn(lastSeen)
+export const getLastSeen = (fn) => {
+  chrome.storage.local.get(["last_seen_tids"], function (result) {
+    fn(result.last_seen_tids)
+  })
 }
-export const setLastSeen = async (
-  storage: Storage,
-  key: string,
-  value: string
-) => {
-  await storage.set(key, value)
+export const setLastSeen = (value: string) => {
+  chrome.storage.local.set({ last_seen_tids: value }, function () {
+    console.log("Value is set to " + value)
+  })
 }

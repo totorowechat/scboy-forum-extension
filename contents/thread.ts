@@ -86,8 +86,8 @@ document.addEventListener(
     //   console.log(postsHeight[postIndex].element.getAttribute("data-pid"))
     let currPage = "1"
     if (getCurrThreadPage() !== "") currPage = getCurrThreadPage()
-    getLastSeen(storage, "last_seen_tids", (lastSeen) => {
-      if (lastSeen === null) lastSeen = {}
+    getLastSeen((lastSeen) => {
+      if (lastSeen === null || lastSeen === undefined) lastSeen = {}
 
       lastSeen[getThreadID()] = {
         page: currPage,
@@ -97,7 +97,8 @@ document.addEventListener(
         floor: getCurrPostFloor(postsHeight[postIndex].element)
       }
 
-      setLastSeen(storage, "last_seen_tids", lastSeen)
+      // setLastSeen(storage, "last_seen_tids", lastSeen)
+      setLastSeen(lastSeen);
     })
   }, 500)
 )

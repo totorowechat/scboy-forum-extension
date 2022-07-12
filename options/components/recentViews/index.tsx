@@ -1,18 +1,8 @@
 import React from "react"
 
-import { Storage } from "@plasmohq/storage"
-
-import { getLastSeen } from "~core/localStorage"
-
 import "./recentViews.css"
 
 function RecentViews() {
-  const storage = new Storage()
-
-  getLastSeen(storage, "last_seen_tids", (lastSeen) => {
-    alert(lastSeen)
-  })
-
   return (
     <div>
       <h1>最近阅读</h1>

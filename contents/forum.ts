@@ -70,7 +70,7 @@ document
     let unread = document.createElement("span")
     unread.className = "scboy-forum-extension-unread"
 
-    getLastSeen(storage, "last_seen_tids", (lastSeen) => {
+    getLastSeen((lastSeen) => {
       let tid = getElementTID(title)
       if (lastSeen[tid] !== undefined) {
         let { page, post, floor } = lastSeen[tid]
