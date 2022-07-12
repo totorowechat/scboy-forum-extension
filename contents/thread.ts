@@ -71,39 +71,45 @@ const getCurrPostFloor = function (ele: HTMLElement) {
 
 let postsHeight = getPostsHeight(getAllPosts())
 
+const setCurrThread = function () {
+  let lastKnownScrollPosition = window.scrollY + window.innerHeight
+  //   console.log(lastKnownScrollPosition)
+
+  // find first element higher than current position, choose last if not found
+
+  let postIndex = postsHeight.findIndex(
+    (post) => post.height > lastKnownScrollPosition
+  )
+
+  if (postIndex === -1) postIndex = postsHeight.length - 1
+  //   console.log(postsHeight[postIndex].element.getAttribute("data-pid"))
+  let currPage = "1"
+  if (getCurrThreadPage() !== "") currPage = getCurrThreadPage()
+  getLastSeen((lastSeen) => {
+    if (lastSeen === null || lastSeen === undefined) lastSeen = {}
+
+    lastSeen[getThreadID()] = {
+      page: currPage,
+      post:
+        postsHeight[postIndex] &&
+        postsHeight[postIndex].element.getAttribute("data-pid"),
+      threadTitle: getThreadTitle(),
+      threadAuthor: getThreadAuthor(),
+      floor: getCurrPostFloor(postsHeight[postIndex].element),
+      updateTime: Date.now()
+    }
+
+    // setLastSeen(storage, "last_seen_tids", lastSeen)
+    setLastSeen(lastSeen)
+  })
+}
+
+setCurrThread()
+
 document.addEventListener(
   "scroll",
   debounce(function (_e) {
-    let lastKnownScrollPosition = window.scrollY + window.innerHeight
-    //   console.log(lastKnownScrollPosition)
-
-    // find first element higher than current position, choose last if not found
-
-    let postIndex = postsHeight.findIndex(
-      (post) => post.height > lastKnownScrollPosition
-    )
-
-    if (postIndex === -1) postIndex = postsHeight.length - 1
-    //   console.log(postsHeight[postIndex].element.getAttribute("data-pid"))
-    let currPage = "1"
-    if (getCurrThreadPage() !== "") currPage = getCurrThreadPage()
-    getLastSeen((lastSeen) => {
-      if (lastSeen === null || lastSeen === undefined) lastSeen = {}
-
-      lastSeen[getThreadID()] = {
-        page: currPage,
-        post:
-          postsHeight[postIndex] &&
-          postsHeight[postIndex].element.getAttribute("data-pid"),
-        threadTitle: getThreadTitle(),
-        threadAuthor: getThreadAuthor(),
-        floor: getCurrPostFloor(postsHeight[postIndex].element),
-        updateTime: Date.now()
-      }
-
-      // setLastSeen(storage, "last_seen_tids", lastSeen)
-      setLastSeen(lastSeen)
-    })
+    setCurrThread()
   }, 500)
 )
 // })

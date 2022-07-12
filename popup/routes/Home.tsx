@@ -2,17 +2,8 @@ import React from "react"
 import { NavigateFunction, useNavigate } from "react-router-dom"
 
 export const Home = () => {
-  const navigation: NavigateFunction = useNavigate()
-
-  const onNextPage = (): void => {
-    navigation("/recentViews")
-  }
 
   return (
-    // <div style={{ padding: 16 }}>
-    //   <span>Home page</span>
-    //   <button onClick={onNextPage}>About</button>
-    // </div>
     <div
       style={{
         display: "flex",
@@ -28,7 +19,7 @@ export const Home = () => {
       </h1>
       <ul>
         <li>
-          <a
+          <button
             onClick={() => {
               chrome.tabs.create({
                 url:
@@ -37,7 +28,7 @@ export const Home = () => {
               })
             }}>
             最近阅读
-          </a>
+          </button>
         </li>
       </ul>
     </div>
