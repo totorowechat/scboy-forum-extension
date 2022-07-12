@@ -19,3 +19,8 @@ pnpm build
 # or
 npm run build
 ```
+
+## TODO
+
+- 阅读历史记录
+- 关注的人更新
